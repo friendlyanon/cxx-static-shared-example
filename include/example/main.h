@@ -9,6 +9,8 @@ class EXAMPLE_EXPORT example {
 public:
   explicit example(int x);
 
+  ~example();
+
   int getX();
 
 private:
