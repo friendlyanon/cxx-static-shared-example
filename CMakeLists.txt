@@ -82,11 +82,15 @@ write_basic_package_version_file(
     COMPATIBILITY SameMajorVersion
 )
 
-set(example_install_cmakedir "${CMAKE_INSTALL_LIBDIR}/cmake/example")
+set(
+    example_INSTALL_CMAKEDIR "${CMAKE_INSTALL_LIBDIR}/cmake/example"
+    CACHE STRING "CMake package config location relative to the install prefix"
+)
+mark_as_advanced(example_INSTALL_CMAKEDIR)
 
 install(
     FILES "${PROJECT_BINARY_DIR}/example-config-version.cmake"
-    DESTINATION "${example_install_cmakedir}"
+    DESTINATION "${example_INSTALL_CMAKEDIR}"
     COMPONENT example_Development
 )
 
@@ -94,7 +98,7 @@ install(
     EXPORT example-targets
     FILE example-config.cmake
     NAMESPACE example::
-    DESTINATION "${example_install_cmakedir}"
+    DESTINATION "${example_INSTALL_CMAKEDIR}"
     COMPONENT example_Development
 )
 
