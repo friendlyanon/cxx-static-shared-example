@@ -14,7 +14,7 @@ public:
   int getX();
 
 private:
-  class example_impl;
+  struct example_impl;
 
   std::unique_ptr<example_impl> pimpl;
 };
