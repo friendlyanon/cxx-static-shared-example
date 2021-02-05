@@ -1,0 +1,82 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - master
+
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  install:
+    strategy:
+      fail-fast: false
+
+      matrix:
+        type: [shared, static]
+
+        os: [macos, ubuntu, windows]
+
+        include:
+          - { type: shared, build: YES }
+          - { type: static, build: NO }
+
+    runs-on: ${{ matrix.os }}-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: actions/cache@v2
+        with:
+          path: prefix
+          key: ${{ github.sha }}-${{ matrix.type }}-${{ matrix.os }}
+
+      - name: Configure
+        run: cmake -S . -B build -D CMAKE_BUILD_TYPE=Release
+          -D BUILD_SHARED_LIBS=${{ matrix.build }}
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Install
+        run: cmake --install build --config Release --prefix prefix
+
+  test:
+    needs: install
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        type: [shared, static]
+
+        os: [macos, ubuntu, windows]
+
+    runs-on: ${{ matrix.os }}-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: actions/cache@v2
+        with:
+          path: prefix
+          key: ${{ github.sha }}-${{ matrix.type }}-${{ matrix.os }}
+
+      - name: Configure
+        shell: pwsh
+        run: >-
+          $PWD = (Get-Location) -replace "\\", "/"
+
+          & cmake -S test -B build -D CMAKE_BUILD_TYPE=Release
+          -D "CMAKE_PREFIX_PATH=${PWD}/prefix"
+
+          exit $LastExitCode
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Run
+        working-directory: build
+        run: ctest
