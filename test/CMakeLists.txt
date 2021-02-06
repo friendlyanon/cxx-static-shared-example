@@ -18,8 +18,8 @@ if(CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
     return()
   endif()
 
-  set_tests_properties(
-      example_test PROPERTIES
-      ENVIRONMENT "PATH=$<TARGET_FILE_DIR:example::example>;$ENV{PATH}"
+  set_property(
+      TEST example_test PROPERTY
+      ENVIRONMENT "PATH=$<TARGET_FILE_DIR:example::example>"
   )
 endif()
