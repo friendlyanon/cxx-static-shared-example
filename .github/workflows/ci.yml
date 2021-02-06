@@ -28,11 +28,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - uses: actions/cache@v2
-        with:
-          path: prefix
-          key: ${{ github.sha }}-${{ matrix.type }}-${{ matrix.os }}
-
       - name: Configure
         run: cmake -S . -B build -D CMAKE_BUILD_TYPE=Release
           -D BUILD_SHARED_LIBS=${{ matrix.build }}
@@ -42,6 +37,11 @@ jobs:
 
       - name: Install
         run: cmake --install build --config Release --prefix prefix
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ${{ github.sha }}-${{ matrix.type }}-${{ matrix.os }}
+          path: prefix
 
   test:
     needs: install
@@ -59,10 +59,10 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - uses: actions/cache@v2
-        with:
+      - uses: actions/download-artifact@v2
+        with: 
+          name: ${{ github.sha }}-${{ matrix.type }}-${{ matrix.os }}
           path: prefix
-          key: ${{ github.sha }}-${{ matrix.type }}-${{ matrix.os }}
 
       - name: Configure
         shell: pwsh
@@ -80,3 +80,21 @@ jobs:
       - name: Run
         working-directory: build
         run: ctest -C Release
+
+  cleanup:
+    if: always()
+
+    needs: [install, test]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: geekyeggo/delete-artifact@v1
+        with:
+          name: |
+            ${{ github.sha }}-shared-macos
+            ${{ github.sha }}-static-macos
+            ${{ github.sha }}-shared-ubuntu
+            ${{ github.sha }}-static-ubuntu
+            ${{ github.sha }}-shared-windows
+            ${{ github.sha }}-static-windows
