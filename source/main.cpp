@@ -20,8 +20,11 @@ example::example(example&& other) : pimpl(std::exchange(other.pimpl, nullptr))
 {}
 
 example& example::operator=(example&& other) {
-  delete pimpl;
-  pimpl = std::exchange(other.pimpl, nullptr);
+  if (this != &other) {
+    delete pimpl;
+    pimpl = std::exchange(other.pimpl, nullptr);
+  }
+
   return *this;
 }
 
