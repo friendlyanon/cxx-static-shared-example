@@ -119,7 +119,7 @@ the runtime component, this symlink is part of the development component of a
 library, as it is used at build time for linking by dependent projects.
 
 Depending on your CMake version, this is installed in different ways. Here it
-is for CMake 3.14+ using the default install locations from
+is for CMake 3.12+ using the default install locations from
 [`GNUInstallDirs`](https://cmake.org/cmake/help/latest/module/GNUInstallDirs.html):
 
 ```cmake
@@ -128,11 +128,14 @@ include(GNUInstallDirs)
 install(
     TARGETS your_target
     RUNTIME #
+    DESTINATION "${CMAKE_INSTALL_BINDIR}"
     COMPONENT your_project_Runtime
     LIBRARY #
+    DESTINATION "${CMAKE_INSTALL_LIBDIR}"
     COMPONENT your_project_Runtime
     NAMELINK_COMPONENT your_project_Development
     ARCHIVE #
+    DESTINATION "${CMAKE_INSTALL_LIBDIR}"
     COMPONENT your_project_Development
 )
 ```

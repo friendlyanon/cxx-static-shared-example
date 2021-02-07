@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.12)
 
 project(
     example
@@ -67,11 +67,14 @@ install(
     TARGETS example
     EXPORT example-targets
     RUNTIME #
+    DESTINATION "${CMAKE_INSTALL_BINDIR}"
     COMPONENT example_Runtime
     LIBRARY #
+    DESTINATION "${CMAKE_INSTALL_LIBDIR}"
     COMPONENT example_Runtime
     NAMELINK_COMPONENT example_Development
     ARCHIVE #
+    DESTINATION "${CMAKE_INSTALL_LIBDIR}"
     COMPONENT example_Development
     INCLUDES #
     DESTINATION "${example_include_directory}"
