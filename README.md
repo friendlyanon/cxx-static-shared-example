@@ -128,7 +128,7 @@ include(GNUInstallDirs)
 install(
     TARGETS your_target
     RUNTIME #
-    DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+    DESTINATION "${CMAKE_INSTALL_BINDIR}"
     COMPONENT your_project_Runtime
     LIBRARY #
     DESTINATION "${CMAKE_INSTALL_LIBDIR}"
