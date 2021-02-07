@@ -4,10 +4,14 @@ on:
   push:
     branches:
       - master
+      - cmake-3.12
+      - cmake-3.8
 
   pull_request:
     branches:
       - master
+      - cmake-3.12
+      - cmake-3.8
 
 jobs:
   install:
