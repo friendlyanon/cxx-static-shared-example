@@ -16,14 +16,19 @@ endif()
 
 # ---- Declare library ----
 
+include(GenerateExportHeader)
+
 set(headers include/example/main.h)
 
 set(sources source/main.cpp)
 
-include(GenerateExportHeader)
-
 add_library(example ${sources} ${headers})
 add_library(example::example ALIAS example)
+
+generate_export_header(
+    example
+    EXPORT_FILE_NAME "include/example/example_export.h"
+)
 
 set_target_properties(
     example PROPERTIES
@@ -31,11 +36,6 @@ set_target_properties(
     VISIBILITY_INLINES_HIDDEN YES
     VERSION "${PROJECT_VERSION}"
     SOVERSION "${PROJECT_VERSION_MAJOR}"
-)
-
-generate_export_header(
-    example
-    EXPORT_FILE_NAME "include/example/example_export.h"
 )
 
 target_include_directories(
