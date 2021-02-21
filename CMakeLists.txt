@@ -65,7 +65,7 @@ install(
 
 install(
     TARGETS example
-    EXPORT example-targets
+    EXPORT exampleTargets
     RUNTIME #
     COMPONENT example_Runtime
     LIBRARY #
@@ -78,7 +78,7 @@ install(
 )
 
 write_basic_package_version_file(
-    example-config-version.cmake
+    exampleConfigVersion.cmake
     COMPATIBILITY SameMajorVersion
 )
 
@@ -89,14 +89,15 @@ set(
 mark_as_advanced(example_INSTALL_CMAKEDIR)
 
 install(
-    FILES "${PROJECT_BINARY_DIR}/example-config-version.cmake"
+    FILES
+    "${PROJECT_SOURCE_DIR}/cmake/exampleConfig.cmake"
+    "${PROJECT_BINARY_DIR}/exampleConfigVersion.cmake"
     DESTINATION "${example_INSTALL_CMAKEDIR}"
     COMPONENT example_Development
 )
 
 install(
-    EXPORT example-targets
-    FILE example-config.cmake
+    EXPORT exampleTargets
     NAMESPACE example::
     DESTINATION "${example_INSTALL_CMAKEDIR}"
     COMPONENT example_Development
