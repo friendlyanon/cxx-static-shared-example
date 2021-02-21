@@ -22,31 +22,34 @@ set(headers include/example/main.h)
 
 set(sources source/main.cpp)
 
-add_library(example ${sources} ${headers})
-add_library(example::example ALIAS example)
+add_library(example_example ${sources} ${headers})
+add_library(example::example ALIAS example_example)
 
 generate_export_header(
-    example
+    example_example
+    BASE_NAME example
     EXPORT_FILE_NAME "include/example/example_export.h"
 )
 
 set_target_properties(
-    example PROPERTIES
+    example_example PROPERTIES
     CXX_VISIBILITY_PRESET hidden
     VISIBILITY_INLINES_HIDDEN YES
     VERSION "${PROJECT_VERSION}"
     SOVERSION "${PROJECT_VERSION_MAJOR}"
+    EXPORT_NAME example
+    OUTPUT_NAME example
 )
 
 target_include_directories(
-    example
+    example_example
     ${example_warning_guard}
     PUBLIC
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
     "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
 )
 
-target_compile_features(example PUBLIC cxx_std_14)
+target_compile_features(example_example PUBLIC cxx_std_14)
 
 # ---- Install ----
 
@@ -64,7 +67,7 @@ install(
 )
 
 install(
-    TARGETS example
+    TARGETS example_example
     EXPORT exampleTargets
     RUNTIME #
     COMPONENT example_Runtime
