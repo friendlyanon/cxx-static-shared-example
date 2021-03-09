@@ -31,6 +31,10 @@ generate_export_header(
     EXPORT_FILE_NAME "include/example/example_export.h"
 )
 
+if(NOT BUILD_SHARED_LIBS)
+  target_compile_definitions(example_example PUBLIC EXAMPLE_STATIC_DEFINE)
+endif()
+
 set_target_properties(
     example_example PROPERTIES
     CXX_VISIBILITY_PRESET hidden
