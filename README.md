@@ -87,7 +87,9 @@ set_target_properties(
 CMake supports generating cross-platform export macros via the
 [`GenerateExportHeader`](https://cmake.org/cmake/help/latest/module/GenerateExportHeader.html)
 module. A library must annotate every symbol that the user is intended to or
-might be able to observe.
+might be able to observe. Additionally, when the library is being built as a
+static library, then these macros should expand to nothing. This can be
+achieved by conditionally setting the `YOUR_TARGET_STATIC_DEFINE` definition.
 
 ```cmake
 include(GenerateExportHeader)
@@ -96,6 +98,10 @@ generate_export_header(
     your_target
     EXPORT_FILE_NAME "include/your_project/your_target_export.h"
 )
+
+if(NOT BUILD_SHARED_LIBS)
+  target_compile_definitions(your_target PUBLIC YOUR_TARGET_STATIC_DEFINE)
+endif()
 
 target_include_directories(
     your_target
