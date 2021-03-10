@@ -57,16 +57,16 @@ target_compile_features(example_example PUBLIC cxx_std_14)
 
 # ---- Install ----
 
+set(CMAKE_INSTALL_INCLUDEDIR "include/example" CACHE PATH "")
+
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)
-
-set(example_include_directory "${CMAKE_INSTALL_INCLUDEDIR}/example")
 
 install(
     DIRECTORY
     "${PROJECT_SOURCE_DIR}/include/"
     "${PROJECT_BINARY_DIR}/include/"
-    DESTINATION "${example_include_directory}"
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
     COMPONENT example_Development
 )
 
@@ -81,7 +81,7 @@ install(
     ARCHIVE #
     COMPONENT example_Development
     INCLUDES #
-    DESTINATION "${example_include_directory}"
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
 )
 
 write_basic_package_version_file(
