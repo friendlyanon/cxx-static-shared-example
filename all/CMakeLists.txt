@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.8)
 
 project(exampleAll NONE)
 
-set(example_INCLUDE_WITHOUT_SYSTEM YES CACHE INTERNAL "")
+set(example_INCLUDE_WITHOUT_SYSTEM YES)
+set(CMAKE_INSTALL_INCLUDEDIR include/example)
 
 add_subdirectory(.. sub/root)
 
