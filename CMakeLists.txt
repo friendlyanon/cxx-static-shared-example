@@ -6,6 +6,12 @@ project(
     LANGUAGES CXX
 )
 
+string(
+    COMPARE EQUAL
+    "${CMAKE_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}"
+    is_top_project
+)
+
 # ---- Warning guard ----
 
 # Protect dependents from this project's warnings if the guard isn't disabled
@@ -57,7 +63,7 @@ target_compile_features(example_example PUBLIC cxx_std_14)
 
 # ---- Install ----
 
-if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+if(is_top_project)
   set(CMAKE_INSTALL_INCLUDEDIR "include/example" CACHE PATH "")
 endif()
 
@@ -112,6 +118,6 @@ install(
     COMPONENT example_Development
 )
 
-if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+if(is_top_project)
   include(CPack)
 endif()
