@@ -57,7 +57,9 @@ target_compile_features(example_example PUBLIC cxx_std_14)
 
 # ---- Install ----
 
-set(CMAKE_INSTALL_INCLUDEDIR "include/example" CACHE PATH "")
+if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+  set(CMAKE_INSTALL_INCLUDEDIR "include/example" CACHE PATH "")
+endif()
 
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)
