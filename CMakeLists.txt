@@ -16,7 +16,7 @@ string(
 
 # Protect dependents from this project's warnings if the guard isn't disabled
 set(example_warning_guard SYSTEM)
-if(example_INCLUDE_WITHOUT_SYSTEM)
+if(is_top_project OR example_INCLUDE_WITHOUT_SYSTEM)
   set(example_warning_guard "")
 endif()
 
