@@ -9,14 +9,14 @@ project(
 string(
     COMPARE EQUAL
     "${CMAKE_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}"
-    is_top_project
+    PROJECT_IS_TOP_LEVEL
 )
 
 # ---- Warning guard ----
 
 # Protect dependents from this project's warnings if the guard isn't disabled
 set(example_warning_guard SYSTEM)
-if(is_top_project OR example_INCLUDE_WITHOUT_SYSTEM)
+if(PROJECT_IS_TOP_LEVEL OR example_INCLUDE_WITHOUT_SYSTEM)
   set(example_warning_guard "")
 endif()
 
@@ -63,7 +63,7 @@ target_compile_features(example_example PUBLIC cxx_std_14)
 
 # ---- Install ----
 
-if(is_top_project)
+if(PROJECT_IS_TOP_LEVEL)
   set(CMAKE_INSTALL_INCLUDEDIR "include/example" CACHE PATH "")
 endif()
 
@@ -121,6 +121,6 @@ install(
     COMPONENT example_Development
 )
 
-if(is_top_project)
+if(PROJECT_IS_TOP_LEVEL)
   include(CPack)
 endif()
