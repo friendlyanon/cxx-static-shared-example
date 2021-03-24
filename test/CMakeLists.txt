@@ -12,14 +12,16 @@ target_compile_features(example_test PRIVATE cxx_std_14)
 
 add_test(NAME example_test COMMAND example_test)
 
-if(CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
-  get_target_property(type example::example TYPE)
-  if(NOT type STREQUAL "SHARED_LIBRARY")
-    return()
-  endif()
-
-  set_property(
-      TEST example_test PROPERTY
-      ENVIRONMENT "PATH=$<TARGET_FILE_DIR:example::example>"
-  )
+if(NOT CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
+  return()
 endif()
+
+get_target_property(type example::example TYPE)
+if(NOT type STREQUAL "SHARED_LIBRARY")
+  return()
+endif()
+
+set_property(
+    TEST example_test PROPERTY
+    ENVIRONMENT "PATH=$<TARGET_FILE_DIR:example::example>"
+)
