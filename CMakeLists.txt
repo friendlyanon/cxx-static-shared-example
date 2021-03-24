@@ -120,3 +120,16 @@ install(
 if(PROJECT_IS_TOP_LEVEL)
   include(CPack)
 endif()
+
+# ---- Developer mode ----
+
+if(NOT example_DEVELOPER_MODE)
+  return()
+elseif(NOT PROJECT_IS_TOP_LEVEL)
+  message(AUTHOR_WARNING "Developer mode is intended for developers of example")
+endif()
+
+include(CTest)
+if(BUILD_TESTING)
+  add_subdirectory(test)
+endif()
