@@ -8,6 +8,7 @@ string(
 
 if(PROJECT_IS_TOP_LEVEL)
   option(example_DEVELOPER_MODE "Enable developer mode" OFF)
+  option(BUILD_SHARED_LIBS "Build shared libs" OFF)
   if("$ENV{CI}")
     set(example_DEVELOPER_MODE ON CACHE INTERNAL "")
   endif()
