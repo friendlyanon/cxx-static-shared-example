@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: Configure
-        run: cmake -S all -B build -D CMAKE_BUILD_TYPE=Release
+        run: cmake -S . -B build -D CMAKE_BUILD_TYPE=Release
           -D BUILD_SHARED_LIBS=${{ matrix.build }}
 
       - name: Build
@@ -43,5 +43,5 @@ jobs:
         run: cmake --install build --config Release --prefix prefix
 
       - name: Test
-        working-directory: build/sub/test
+        working-directory: build
         run: ctest -C Release
