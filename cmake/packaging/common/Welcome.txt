@@ -1,0 +1,4 @@
+Welcome to the example installer.
+
+This program will guide you through the installation of the example library and
+development files.

@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 8,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "package",
+      "hidden": true,
+      "environment": {
+        "CI": ""
+      }
+    },
+    {
+      "name": "package-unix",
+      "hidden": true,
+      "inherits": "package",
+      "generator": "Unix Makefiles"
+    },
+    {
+      "name": "package-unix-shared",
+      "inherits": "package-unix",
+      "displayName": "Package UNIX shared libs",
+      "description": "Build for packaging UNIX shared libraries",
+      "binaryDir": "build/shared",
+      "cacheVariables": {
+        "BUILD_SHARED_LIBS": "YES"
+      }
+    },
+    {
+      "name": "package-debian-shared",
+      "inherits": "package-unix-shared",
+      "displayName": "Package shared library for Debian",
+      "description": "Package shared library for Debian",
+      "binaryDir": "build/shared",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake/packaging/deb/toolchain.cmake"
+      }
+    }
+  ]
+}

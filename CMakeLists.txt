@@ -107,7 +107,7 @@ install(
 )
 
 if(PROJECT_IS_TOP_LEVEL)
-  include(CPack)
+  include(cmake/packaging.cmake)
 endif()
 
 # ---- Developer mode ----
