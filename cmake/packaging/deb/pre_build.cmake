@@ -5,7 +5,11 @@ if(NOT GZIP)
   message(FATAL_ERROR "Could not find gzip")
 endif()
 
-file(STRINGS "${CPACK_RESOURCE_FILE_LICENSE}" copyright_line LIMIT_COUNT 1)
+file(
+    STRINGS "${CPACK_RESOURCE_FILE_LICENSE}" copyright_line
+    LIMIT_COUNT 1
+    REGEX "^Copyright"
+)
 string(TIMESTAMP timestamp "%a, %d %b %Y %H:%M:%S" UTC)
 
 foreach(comp IN LISTS CPACK_COMPONENTS_ALL)
