@@ -147,6 +147,7 @@ install(
 
 install(
     TARGETS your_target
+    DESTINATION dummy # provided above already
     LIBRARY #
     DESTINATION "${CMAKE_INSTALL_LIBDIR}"
     COMPONENT your_project_Development
