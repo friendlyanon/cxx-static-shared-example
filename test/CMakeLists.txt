@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.8)
 
 project(example_tests CXX)
 
-if(example_TEST_INSTALLED_PACKAGE)
+include(../cmake/project-is-top-level.cmake)
+
+if(PROJECT_IS_TOP_LEVEL)
   find_package(example REQUIRED)
 endif()
 

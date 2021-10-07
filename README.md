@@ -37,7 +37,7 @@ default.
 Making package maintainers' life more difficult for no reason benefits noone.
 
 ```cmake
-add_library(your_target ${headers} ${sources})
+add_library(your_target source/main.cpp)
 ```
 
 ## SONAME and REAL LIBRARY
@@ -96,7 +96,7 @@ include(GenerateExportHeader)
 
 generate_export_header(
     your_target
-    EXPORT_FILE_NAME "include/your_project/your_target_export.h"
+    EXPORT_FILE_NAME include/your_project/your_target_export.h
 )
 
 if(NOT BUILD_SHARED_LIBS)
@@ -104,8 +104,7 @@ if(NOT BUILD_SHARED_LIBS)
 endif()
 
 target_include_directories(
-    your_target
-    ${your_project_warning_guard}
+    your_target ${your_project_warning_guard}
     PUBLIC
     "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
 )

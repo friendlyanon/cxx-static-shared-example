@@ -6,23 +6,20 @@ project(
     LANGUAGES CXX
 )
 
+include(cmake/project-is-top-level.cmake)
 include(cmake/variables.cmake)
 
 # ---- Declare library ----
 
-include(GenerateExportHeader)
-
-set(headers include/example/main.h)
-
-set(sources source/main.cpp)
-
-add_library(example_example ${sources} ${headers})
+add_library(example_example source/main.cpp)
 add_library(example::example ALIAS example_example)
+
+include(GenerateExportHeader)
 
 generate_export_header(
     example_example
     BASE_NAME example
-    EXPORT_FILE_NAME "include/example/example_export.h"
+    EXPORT_FILE_NAME include/example/example_export.h
 )
 
 if(NOT BUILD_SHARED_LIBS)
@@ -40,8 +37,7 @@ set_target_properties(
 )
 
 target_include_directories(
-    example_example
-    ${example_warning_guard}
+    example_example ${example_warning_guard}
     PUBLIC
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
     "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>"
