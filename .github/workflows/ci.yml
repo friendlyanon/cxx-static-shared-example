@@ -35,6 +35,7 @@ jobs:
       - name: Configure
         run: cmake -S . -B build -D CMAKE_BUILD_TYPE=Release
           -D BUILD_SHARED_LIBS=${{ matrix.build }}
+          -D example_DEVELOPER_MODE=YES
 
       - name: Build
         run: cmake --build build --config Release
