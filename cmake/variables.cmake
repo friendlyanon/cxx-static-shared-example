@@ -1,17 +1,8 @@
-string(
-    COMPARE EQUAL
-    "${CMAKE_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}"
-    PROJECT_IS_TOP_LEVEL
-)
-
 # ---- Developer mode ----
 
 if(PROJECT_IS_TOP_LEVEL)
   option(example_DEVELOPER_MODE "Enable developer mode" OFF)
   option(BUILD_SHARED_LIBS "Build shared libs" OFF)
-  if("$ENV{CI}")
-    set(example_DEVELOPER_MODE ON CACHE INTERNAL "")
-  endif()
 endif()
 
 # ---- Warning guard ----
